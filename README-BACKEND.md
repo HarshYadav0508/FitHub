@@ -1,4 +1,4 @@
-            #FitHub Backend API Documentation
+            #**FitHub Backend API Documentation**
 
 **Overview**
 
@@ -31,7 +31,7 @@ dotenv package for environment variables
 
 
 
-**Installation**
+            **Installation**
 
 Clone the repository:
 
@@ -59,7 +59,7 @@ ACCESS_SECRET=your_jwt_secret_key
 npm start
 
 
-***Environment Variables**
+            **Environment Variables**
 
 PORT: Port number on which the server will listen (default is 3000).
 
@@ -70,7 +70,7 @@ PAYMENT_KEY: Stripe payment key for payment processing.
 ACCESS_SECRET: Secret key for JWT token generation and verification.
 
 
-#API Endpoints
+            **API Endpoints**
 
 **User Endpoints**
 
@@ -268,7 +268,7 @@ Get admin statistics (requires JWT token and admin role).
 Response: { approvedClasses, pendingClasses, instructors, totalClasses, totalEnrolled }
 
 
-**Models**
+            **Models**
 
 User Model: Defines the schema for users.
 
@@ -283,6 +283,6 @@ Enrollment Model: Defines the schema for enrollments.
 Applied Model: Defines the schema for applied instructors.
 
 
-**Testing**
+            **Testing**
 
 To test the API, you can use tools like Postman or cURL. Ensure you provide the necessary JWT tokens for protected routes.
