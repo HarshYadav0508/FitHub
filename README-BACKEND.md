@@ -22,7 +22,7 @@ The FitHub backend API provides a robust and modular framework for managing user
 
 **Setup and Installation**
 
-@Prerequisites
+Prerequisites
 
 Node.js (v14 or higher)
 MongoDB
@@ -36,7 +36,6 @@ dotenv package for environment variables
 Clone the repository:
 
 git clone https://github.com/yourusername/fithub-backend.git
-cd fithub-backend
 
 
 Install dependencies:
@@ -71,41 +70,40 @@ PAYMENT_KEY: Stripe payment key for payment processing.
 ACCESS_SECRET: Secret key for JWT token generation and verification.
 
 
-**API Endpoints**
+#API Endpoints
 
-*User Endpoints*
+**User Endpoints**
 
-POST /new-user
-
+POST /new-user ==>
 Create a new user.
 Request body: { name, email, role, address, phone, about, photoUrl, skills }
 Response: { result }
 
 
-GET /users
+GET /users ==>
 
 Get all users.
 Response: [ { user } ]
 
 
-GET /users/
+GET /users/ ==>
 
 Get a user by ID.
 Response: { user }
 
-GET /user/
+GET /user/ ==>
 
 Get a user by email (requires JWT token).
 Response: { user }
 
 
-DELETE /delete-user/
+DELETE /delete-user/ ==>
 
 Delete a user by ID (requires JWT token and admin role).
 Response: { result }
 
 
-PUT /update-user/
+PUT /update-user/ ==>
 
 Update a user by ID (requires JWT token and admin role).
 Request body: { name, email, role, address, phone, about, photoUrl, skills }
@@ -115,145 +113,147 @@ Response: { result }
 **Class Endpoints**
 
 
-POST /new-class
+POST /new-class ==>
 
 Create a new class (requires JWT token and instructor role).
 Request body: { name, instructorName, instructorEmail, description, videoLink, price, availableSeats, status }
 Response: { result }
 
 
-GET /classes/
+GET /classes/ ==>
 
 Get all classes added by an instructor (requires JWT token and instructor role).
 Response: [ { class } ]
 
 
-GET /classes
+GET /classes ==>
 
 Get all approved classes.
 Response: [ { class } ]
 
 
-GET /class/
+GET /class/ ==>
 
 Get a class by ID.
 Response: { class }
 
 
-GET /classes/
+GET /classes/ ==>
 
 Get classes by instructor name.
 Response: [ { class } ]
 
 
-GET /classes-manage
+GET /classes-manage ==>
 
 Get all classes (admin access required).
 Response: [ { class } ]
 
 
-PATCH /class-status/
+PATCH /class-status/ ==>
 
 Update class status and reason (requires JWT token and admin role).
 Request body: { status, reason }
 Response: { result }
 
 
-PUT /update-class/
+PUT /update-class/ ==>
 
 Update class information (requires JWT token and instructor role).
 Request body: { name, availableSeats, price, videoLink, description, instructorName, instructorEmail, status }
 Response: { result }
 
 
-****Cart Endpoints**
+**Cart Endpoints**
 
-POST /add-to-cart
+POST /add-to-cart ==>
 
 Add a class to the cart (requires JWT token).
 Request body: { userEmail, classId }
 Response: { result }
 
 
-GET /cart-item/
+GET /cart-item/ ==>
 
 Get cart item by class ID (requires JWT token).
 Response: { classId }
 
 
-GET /cart/
+GET /cart/ ==>
 
 Get cart items for a user (requires JWT token).
 Response: [ { class } ]
 
 
-DELETE /delete-cart-item/
+DELETE /delete-cart-item/ ==>
 
 Delete a cart item by class ID (requires JWT token).
 Response: { result }
-Payment Endpoints
 
 
-POST /create-payment-intent
+**Payment Endpoints**
+
+
+POST /create-payment-intent ==>
 
 Create a payment intent (requires JWT token).
 Request body: { price }
 Response: { clientSecret }
 
 
-POST /payment-info
+POST /payment-info ==>
 
 Save payment information (requires JWT token).
 Request body: { userEmail, classId, transactionId }
 Response: { paymentResult, deletedResult, enrolledResult, updatedResult }
 
 
-GET /payment-history/
+GET /payment-history/ ==>
 
 Get payment history for a user.
 Response: [ { payment } ]
 
 
-GET /payment-history-length/
+GET /payment-history-length/ ==>
 
 Get the number of payments for a user.
 Response: { count }
 Enrollment Endpoints
 
 
-GET /popular-classes
+GET /popular-classes ==>
 
 Get the top 6 popular classes.
 Response: [ { class } ]
 
 
-GET /popular-instructors
+GET /popular-instructors ==>
 
 Get the top 6 popular instructors.
 Response: [ { instructor } ]
 
 
-GET /instructors
+GET /instructors ==>
 
 Get all instructors.
 Response: [ { instructor } ]
 
 
-GET /enrolled-classes/
+GET /enrolled-classes/ ==>
 
 Get all classes enrolled by a user (requires JWT token).
 Response: [ { class, instructor } ]
 Applied Instructors Endpoints
 
 
-POST /as-instructor
+POST /as-instructor ==>
 
 Apply as an instructor.
 Request body: { email, status }
 Response: { result }
 
 
-GET /applied-instructors/
+GET /applied-instructors/ ==>
 
 Get the application status of an instructor.
 Response: { application }
@@ -262,7 +262,8 @@ Response: { application }
 
 **Admin Endpoints**
 
-GET /admin-stats
+GET /admin-stats ==>
+
 Get admin statistics (requires JWT token and admin role).
 Response: { approvedClasses, pendingClasses, instructors, totalClasses, totalEnrolled }
 
@@ -270,10 +271,15 @@ Response: { approvedClasses, pendingClasses, instructors, totalClasses, totalEnr
 **Models**
 
 User Model: Defines the schema for users.
+
 Class Model: Defines the schema for classes.
+
 Cart Model: Defines the schema for cart items.
+
 Payment Model: Defines the schema for payments.
+
 Enrollment Model: Defines the schema for enrollments.
+
 Applied Model: Defines the schema for applied instructors.
 
 
