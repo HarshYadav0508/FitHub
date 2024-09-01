@@ -20,7 +20,7 @@ const verifyJWT = (req, res, next) => {
         return res.status(401).send({ error: true, message: 'Unauthorize access' })
     }
     const token = authorization?.split(' ')[1]
-    jwt.verify(token, process.env.ACCESS_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.ACCESS_KEY, (err, decoded) => {
         if (err) {
             return res.status(403).send({ error: true, message: 'forbidden user or token has expired' })
         }
@@ -93,7 +93,7 @@ async function run() {
     })
     app.post('/api/set-token', (req, res) => {
         const user = req.body;
-        const token = jwt.sign(user, process.env.ACCESS_SECRET, { expiresIn: '24h' })
+        const token = jwt.sign(user, process.env.ACCESS_KEY, { expiresIn: '24h' })
         res.send({ token })
     })
 
@@ -159,7 +159,7 @@ async function run() {
     app.get('/classes/:email', verifyJWT, verifyInstructor, async (req, res) => {
         const email = req.params.email;
         const query = { instructorEmail: email };
-        const result = await classesCollection.find(query).toArray();
+        const result = await classCollection.find(query).toArray();
         res.send(result);
     });
 
@@ -239,34 +239,31 @@ async function run() {
     })
 
     //get cart item through id
-    app.get('/cart-item/:id', verifyJWT, async (req,res) => {
+    app.get('/cart-item/:id', verifyJWT, async (req, res) => {
         const id = req.params.id;
-        const email = req.body.email;
-        const query = {
-            classId: id,
-            userMail: email
-        };
+        const email = req.query.email;
+        const query = { classId: id, userMail: email };
         const projection = { classId: 1 };
-        const result = await cartCollection.findOne(query, {projection: projection});
+        const result = await cartCollection.findOne(query, { projection: projection });
         res.send(result);
     })
 
     // cart by user id
-    app.get('/cart/:email', verifyJWT, async (req,res) => {
+    app.get('/cart/:email', verifyJWT, async (req, res) => {
         const email = req.params.email;
-        const query = { email: email};
+        const query = { userMail: email };
         const projection = { classId: 1 };
-        const cart = await cartCollection.find(query, {projection: projection}).toArray();
-        const classIds = cart.map((cart) => new ObjectId(cart.classId));
-        const query2 = {_id: {$in: classIds}};
+        const carts = await cartCollection.find(query, { projection: projection }).toArray();
+        const classIds = carts.map(cart => new ObjectId(cart.classId));
+        const query2 = { _id: { $in: classIds } };
         const result = await classCollection.find(query2).toArray();
         res.send(result);
     })
 
     //Deleting cart items
-    app.delete('/delete-cart-item/:id', verifyJWT, async (req,res) => {
+    app.delete('/delete-cart-item/:id', verifyJWT, async (req, res) => {
         const id = req.params.id;
-        const query = {classId: id};
+        const query = { classId: id };
         const result = await cartCollection.deleteOne(query);
         res.send(result);
     })
@@ -286,54 +283,55 @@ async function run() {
     })
 
     //Payment info to DB
-    app.post('/payment-info', verifyJWT, async (req,res) => {
+    app.post('/payment-info', verifyJWT, async (req, res) => {
         const paymentInfo = req.body;
         const classesId = paymentInfo.classesId;
         const userEmail = paymentInfo.userEmail;
         const singleClassId = req.query.classId;
         let query;
-        if(singleClassId){
-            query = { classId: singleClassId, email: userEmail };
+        // const query = { classId: { $in: classesId } };
+        if (singleClassId) {
+            query = { classId: singleClassId, userMail: userEmail };
         } else {
-            query = { classId: {$in: classesId}};
+            query = { classId: { $in: classesId } };
         }
-        const classesQuery = { _id: {$in: classesId.map( id => {new ObjectId(id)})}};
-        const classes = await classCollection.find(classesQuery).toArray();
+        const classesQuery = { _id: { $in: classesId.map(id => new ObjectId(id)) } }
+        const classes = await classesCollection.find(classesQuery).toArray();
         const newEnrolledData = {
             userEmail: userEmail,
-            classId: singleClassId.map(id => new ObjectId(id)),
-            transactionId: paymentInfo.transactionId
+            classesId: classesId.map(id => new ObjectId(id)),
+            transactionId: paymentInfo.transactionId,
         }
         const updatedDoc = {
             $set: {
                 totalEnrolled: classes.reduce((total, current) => total + current.totalEnrolled, 0) + 1 || 0,
-                availableSeats: classes.reduce((total, current) => total + current.availableSeats, 0) - 1 || 0
+                availableSeats: classes.reduce((total, current) => total + current.availableSeats, 0) - 1 || 0,
             }
-        };
-
-        const updatedResult = await classCollection.updateMany(classesQuery, updatedDoc, {upsert: true});
+        }
+        // const updatedInstructor = await userCollection.find()
+        const updatedResult = await classesCollection.updateMany(classesQuery, updatedDoc, { upsert: true });
         const enrolledResult = await enrolledCollection.insertOne(newEnrolledData);
         const deletedResult = await cartCollection.deleteMany(query);
         const paymentResult = await paymentCollection.insertOne(paymentInfo);
-
-        res.send({ paymentResult, deletedResult, enrolledResult, updatedResult});
+        res.send({ paymentResult, deletedResult, enrolledResult, updatedResult });
     })
 
+
     //Payment History
-    app.get('/payment-history/:email', async(req,res) => {
-        const email = req.params.email;
-        const query = { userEmail: email };
-        const total = await paymentCollection.find(query).sort({date: -1}).toArray();
-        res.send(total);
-    });
+    app.get('/payment-history/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { userEmail: email };
+            const result = await paymentCollection.find(query).sort({ date: -1 }).toArray();
+            res.send(result);
+        })
 
     //History length
-    app.get('/payment-history-length/:email', async(req,res) => {
+    app.get('/payment-history-length/:email', async (req, res) => {
         const email = req.params.email;
         const query = { userEmail: email };
-        const result = await paymentCollection.countDocuments(query);
-        res.send(result);
-    });
+        const total = await paymentCollection.countDocuments(query);
+        res.send({ total });
+    })
 
     //Routes for ENROLLMENTS=================================================================================================================
 
@@ -344,7 +342,7 @@ async function run() {
     })
 
     //popular instructors
-    app.get('/popular-instructors', async (req,res) => {
+    app.get('/popular-instructors', async (req, res) => {
         const pipeline = [
             {
                 $group: {
@@ -358,6 +356,11 @@ async function run() {
                     localField: "_id",
                     foreignField: "email",
                     as: "instructor"
+                }
+            },
+            {
+                $match: {
+                    "instructor.role": "instructor"
                 }
             },
             {
@@ -380,13 +383,16 @@ async function run() {
         ]
         const result = await classCollection.aggregate(pipeline).toArray();
         res.send(result);
-    }) 
+
+    })
 
     //get all intructors
     app.get('/instructors', async (req, res) => {
         const result = await userCollection.find({ role: 'instructor' }).toArray();
         res.send(result);
     })
+
+
 
     app.get('/enrolled-classes/:email', verifyJWT, async (req, res) => {
         const email = req.params.email;
@@ -430,6 +436,7 @@ async function run() {
         res.send(result);
     })
 
+    
     //Applied Routes================================================================================================================================'
     app.post('/as-instructor', async (req, res) => {
         const data = req.body;
