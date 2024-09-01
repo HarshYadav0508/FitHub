@@ -17,7 +17,7 @@ const instructors = () => {
           });
   }, [axiosFetch]);
 
-  console.log(instructors);
+  // console.log(instructors);
 
   return (
     <div className='md:w-[80%] mx-auto my-36'>

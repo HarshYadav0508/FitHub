@@ -3,7 +3,7 @@ import { FaInstagram, FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-white text-gray-800 py-8 px-8">
+    <footer className="bg-white text-gray-800 py-8 px-8 mt-20">
     <div className="max-w-screen-xl mx-auto">
       {/* Header and Subscription */}
       <div className="text-center mb-6">
@@ -18,6 +18,7 @@ const Footer = () => {
               <button className="px-6 py-2 bg-secondary text-white rounded-r-full">
                 Subscribe
               </button>
+              
             </div>
           </div>
         </div>
