@@ -76,12 +76,13 @@ const AuthProvider = ({children}) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user);
-
+    
             if (user) {
                 axios.post('http://localhost:3000/api/set-token', { email: user.email, name: user.displayName })
                     .then((data) => {
                         if (data.data.token) {
                             localStorage.setItem('token', data.data.token);
+                            console.log("Token set:", data.data.token);
                             setLoader(false);
                         }
                     });
@@ -90,7 +91,7 @@ const AuthProvider = ({children}) => {
                 setLoader(false);
             }
         });
-
+    
         return () => unsubscribe();
     }, [auth]);
 

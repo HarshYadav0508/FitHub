@@ -36,48 +36,60 @@ const Classes = () => {
   }, []);
 
   //HANDLING ADD TO CART
-  const handleSelect = (id) => {
-    // console.log(id);
-    axiosSecure.get(`/enrolled-classes/${currentUser?.email}`)
-    .then(res => setEnrolledClasses(res.data)).catch(error => console.log(error))
+  const handleSelect = async (id) => {
+    const token = localStorage.getItem('token');
+    console.log("Token before request:", token);
 
-    if(!currentUser) {
-      return toast.error('Please Login first!')
+    if (!token) {
+        return toast.error('Please Login first!');
     }
 
-    axiosSecure.get(`/cart-item/${id}?email=${currentUser.email}`)
-    .then( res => {
-      if(res.data.classId === id) {
-        return toast.error("Already Selected!")
-      } else if (enrolledClasses.find(item => item.classes._id === id)) {
-        return toast.error("Already Enrolled!")
-      } else {
+    
+    // axiosSecure.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+    try {
+        
+        const enrolledClassesRes = await axiosSecure.get(`/enrolled-classes/${currentUser?.email}`);
+        const enrolledClasses = enrolledClassesRes.data;
+        setEnrolledClasses(enrolledClasses);
+
+       
+        const cartItemRes = await axiosSecure.get(`/cart-item/${id}?email=${currentUser.email}`);
+        if (cartItemRes.data.classId === id) {
+            return toast.error("Already Selected!");
+        }
+
+        
+        if (enrolledClasses.find(item => item.classes._id === id)) {
+            return toast.error("Already Enrolled!");
+        }
+
+        // Add to cart
         const data = {
-          classId: id,
-          userMail: currentUser.email,
-          data: new Date()
-        }
+            classId: id,
+            userMail: currentUser.email,
+            data: new Date()
+        };
 
-        toast.promise(axiosSecure.post('/add-to-cart', data))
-        .then(res => {
-          console.log(res.data)
-        }), {
-          pending: 'Selecting...',
-          success: {
-            render({data}) {
-              return 'Selected Succesfully!'
+        await toast.promise(
+            axiosSecure.post('/add-to-cart', data),
+            {
+                pending: 'Selecting...',
+                success: 'Selected Successfully!',
+                error: {
+                    render({ data }) {
+                        return `Error: ${data.message}`;
+                    }
+                }
             }
-          },
-          error: {
-            render({data}) {
-              return `Error: ${data.message}`
-            }
-          }
-        }
-      }
-    })
-  }
+        );
 
+        console.log("Item added to cart successfully");
+    } catch (error) {
+        console.error("Error handling selection:", error);
+        toast.error('An error occurred while processing your request.');
+    }
+};
   // console.log(classes);
 
   return (
