@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import useUser from '../../hooks/useUser';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Classes = () => {
 
@@ -59,7 +59,7 @@ const Classes = () => {
             return toast.error("Already Selected!");
         }
 
-        
+       
         if (enrolledClasses.find(item => item.classes._id === id)) {
             return toast.error("Already Enrolled!");
         }
@@ -94,6 +94,7 @@ const Classes = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className='mt-20 pt-3'>
         <h1 className='text-4xl font-bold text-center text-secondary'>Classes</h1>
       </div>
