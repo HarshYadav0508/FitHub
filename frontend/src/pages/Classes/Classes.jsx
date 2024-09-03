@@ -13,7 +13,7 @@ const Classes = () => {
 
   const [classes, setClasses] = useState([]);
   const {currentUser} = useUser();
-  console.log('Current user: ', currentUser);
+  // console.log('Current user: ', currentUser);
   const role = currentUser?.role;
   const [enrolledClasses, setEnrolledClasses] = useState([]);
   const navigate = useNavigate();
@@ -86,7 +86,7 @@ const Classes = () => {
       <div className='mt-20 pt-3'>
         <h1 className='text-4xl font-bold text-center text-secondary'>Classes</h1>
       </div>
-      <div className='my-16 w-[90%]  mx-auto grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+      <div className='my-16 w-[90%]  mx-auto grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4'>
         {
           classes.map((cls, index) => (
             <div
@@ -126,7 +126,7 @@ const Classes = () => {
                 <p className='text-sm'>Instructor: {cls.instructorName}</p>
                 <div className='flex items-center justify-between mt-4'>
                   <span className='text-gray-600 text-xs'>Available Seats: {cls.availableSeats}</span>
-                  <span className='text-green-500 font-semibold'>${cls.price}</span>
+                  <span className='text-green-500 font-semibold'>₹{cls.price}</span>
                 </div>
                 <Link to={`/class/${cls._id}`}><button className='px-4 py-2 mt-4 w-full mx-auto text-white disabled:bg-red-300 bg-secondary duration-300 rounded-lg hover:bg-green-500'>View</button></Link>
               </div>
