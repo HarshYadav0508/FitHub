@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosFetch from '../../hooks/useAxiosFetch';
 import { Transition } from '@headlessui/react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import useUser from '../../hooks/useUser';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { ToastContainer, toast } from 'react-toastify';
 
+
+
 const Classes = () => {
 
   const [classes, setClasses] = useState([]);
   const {currentUser} = useUser();
+  console.log('Current user: ', currentUser);
   const role = currentUser?.role;
   const [enrolledClasses, setEnrolledClasses] = useState([]);
+  const navigate = useNavigate();
 
   const [hoveredCard, setHoveredCard] = useState(null);
   const axiosFetch = useAxiosFetch();
@@ -35,62 +39,46 @@ const Classes = () => {
       });
   }, []);
 
-  //HANDLING ADD TO CART
-  const handleSelect = async (id) => {
-    const token = localStorage.getItem('token');
-    console.log("Token before request:", token);
-
-    if (!token) {
-        return toast.error('Please Login first!');
-    }
-
-    
-    // axiosSecure.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-    try {
-        
-        const enrolledClassesRes = await axiosSecure.get(`/enrolled-classes/${currentUser?.email}`);
-        const enrolledClasses = enrolledClassesRes.data;
-        setEnrolledClasses(enrolledClasses);
-
-       
-        const cartItemRes = await axiosSecure.get(`/cart-item/${id}?email=${currentUser.email}`);
-        if (cartItemRes.data.classId === id) {
-            return toast.error("Already Selected!");
-        }
-
-       
-        if (enrolledClasses.find(item => item.classes._id === id)) {
-            return toast.error("Already Enrolled!");
-        }
-
-        // Add to cart
-        const data = {
-            classId: id,
-            userMail: currentUser.email,
-            data: new Date()
-        };
-
-        await toast.promise(
-            axiosSecure.post('/add-to-cart', data),
-            {
-                pending: 'Selecting...',
-                success: 'Selected Successfully!',
-                error: {
-                    render({ data }) {
-                        return `Error: ${data.message}`;
-                    }
-                }
-            }
-        );
-
-        console.log("Item added to cart successfully");
-    } catch (error) {
-        console.error("Error handling selection:", error);
-        toast.error('An error occurred while processing your request.');
-    }
-};
+ 
   // console.log(classes);
+
+  const handleSelect = (id) => {
+    
+
+    axiosSecure.get(`/enrolled-classes/${currentUser?.email}`)
+      .then((res) => setEnrolledClasses(res.data))
+      .catch((err) => console.log(err));
+    
+    if (!currentUser) {
+      toast.warn('Please login first', { position: "top-center" });
+      return navigate('/login');
+    }
+  
+    axiosSecure.get(`/cart-item/${id}?email=${currentUser?.email}`)
+      .then(res => {
+        if (res.data.classId === id) {
+          return toast.info("Already Selected");
+        } else if (enrolledClasses.find(item => item.classes._id === id)) {
+          return toast.info("Already Enrolled");
+        } else {
+          const data = {
+            classId: id,
+            userMail: currentUser?.email,
+            date: new Date()  // Corrected the property name 'data' to 'date'         
+          };
+  
+          axiosSecure.post('/add-to-cart', data)
+            .then(res => {
+              toast.success('Successfully added to the cart!');
+              console.log(res.data);
+            });
+        }
+      })
+      .catch((err) => {
+        toast.error('Something went wrong!');
+        console.log(err);
+      });
+  }
 
   return (
     <div>
