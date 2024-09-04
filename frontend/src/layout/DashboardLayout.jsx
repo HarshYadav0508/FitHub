@@ -168,6 +168,7 @@ const DashboardLayout = () => {
                 </ul>
             }
 
+            {/* MORE SECTION */}
 
             <ul className='pt-6'>
                 <p className={`ml-3 text-gray-500 uppercase ${!open && 'hidden'}`}><small>MORE</small></p>
@@ -195,7 +196,7 @@ const DashboardLayout = () => {
                 </li>
             </ul>
         </div>
-        <div>
+        <div className='h-screen overflow-y-auto px-8 flex-1'>
             <Scroll />
             <Outlet />
         </div>

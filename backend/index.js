@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const stripe = require('stripe')(process.env.PAYMENT_KEY);
 require('dotenv').config();
+const stripe = require('stripe')(process.env.PAYMENT_KEY);
 const jwt = require('jsonwebtoken');
 
 const app = express();
@@ -296,7 +296,7 @@ async function run() {
             query = { classId: { $in: classesId } };
         }
         const classesQuery = { _id: { $in: classesId.map(id => new ObjectId(id)) } }
-        const classes = await classesCollection.find(classesQuery).toArray();
+        const classes = await classCollection.find(classesQuery).toArray();
         const newEnrolledData = {
             userEmail: userEmail,
             classesId: classesId.map(id => new ObjectId(id)),
@@ -309,7 +309,7 @@ async function run() {
             }
         }
         // const updatedInstructor = await userCollection.find()
-        const updatedResult = await classesCollection.updateMany(classesQuery, updatedDoc, { upsert: true });
+        const updatedResult = await classCollection.updateMany(classesQuery, updatedDoc, { upsert: true });
         const enrolledResult = await enrolledCollection.insertOne(newEnrolledData);
         const deletedResult = await cartCollection.deleteMany(query);
         const paymentResult = await paymentCollection.insertOne(paymentInfo);

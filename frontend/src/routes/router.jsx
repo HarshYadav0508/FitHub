@@ -11,6 +11,11 @@ import ClassPage from '../pages/Classes/ClassPage.jsx';
 import Dashboard from '../pages/Dashboard/Dashboard.jsx';
 import DashboardLayout from '../layout/DashboardLayout.jsx';
 import StudentCP from '../pages/Dashboard/Student/StudentCP.jsx';
+import EnrolledClasses from '../pages/Dashboard/Student/Enroll/EnrolledClasses.jsx';
+import SelectedClass from '../pages/Dashboard/Student/SelectedClass.jsx';
+import MyPaymentHistory from '../pages/Dashboard/Student/Payment/History/MyPaymentHistory.jsx';
+import AsInstructor from '../pages/Dashboard/Student/Apply/AsInstructor.jsx';
+import Payment from '../pages/Dashboard/Student/Payment/Payment.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -57,7 +62,28 @@ export const router = createBrowserRouter([
     {
       path: "student-cp",
       element: <StudentCP />
+    },
+    {
+      path: "enrolled-class",
+      element: <EnrolledClasses />
+    },
+    {
+      path: "my-selected",
+      element: <SelectedClass />
+    },
+    {
+      path: "my-payments",
+      element: <MyPaymentHistory />
+    },
+    {
+      path: "apply-instructor",
+      element: <AsInstructor />
+    },
+    {
+      path: "user/payment",
+      element: <Payment />
     }
-    ]
+    ]    
   }
 ]);
+ 

@@ -36,8 +36,8 @@ function NavBar() {
   const [isFixed, setIsFixed] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [navBg, setNavBg] = useState('bg-transparent');
-  // const [user,setUser] = useState(false);
-  const user = false;
+  const [user,setUser] = useState(false);
+  // const user = true;
 
   const toggleMobileMenu = () => {
     setisMobileMenuOpen(!isMobileMenuOpen)
