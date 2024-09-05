@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeProvider, THEME_ID, createTheme } from '@mui/material/styles';
 import { Switch } from '@mui/material';
 import { motion } from 'framer-motion';
+import { AuthContext } from '../../utilities/providers/AuthProvider';
+import Swal from 'sweetalert2';
+
 
 
 import photoURL from '../../assets/home/user.png';
@@ -36,8 +39,9 @@ function NavBar() {
   const [isFixed, setIsFixed] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [navBg, setNavBg] = useState('bg-transparent');
-  const [user,setUser] = useState(false);
+  // const [user,setUser] = useState(false);
   // const user = true;
+  const {logout, user} = useContext(AuthContext);
 
   const toggleMobileMenu = () => {
     setisMobileMenuOpen(!isMobileMenuOpen)
@@ -79,8 +83,27 @@ function NavBar() {
   }, [scrollPosition, isHome, location.pathname, isDarkMode]);
   
 
-  const handleLogout = () => {
-    console.log("logout out")
+  const handleLogout = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Logout"
+    }).then((result) => {
+      if (result.isConfirmed) {
+          logout().then(
+              Swal.fire({
+              title: "Logged Out",
+              text: "You have been Logged out",
+              icon: "success"
+            })).catch((err) => console.log(err))
+      }
+      navigate('/')
+    });
   }
 
   return (
@@ -170,7 +193,7 @@ function NavBar() {
                 
                 {
                   user && <li>
-                    <img src={photoURL} alt='pic' className='h-[40px] rounded-full w-[40px]' />
+                    <img src={user.photoURL} alt='pic' className='h-[40px] rounded-full w-[40px]' />
                   </li>
                 }
                 {

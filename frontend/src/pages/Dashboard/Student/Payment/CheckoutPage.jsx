@@ -131,7 +131,7 @@ const CheckoutPage = ({price, cartItem}) => {
     <>
     <div className='text-center mb-6'>
         <h1 className='text-2xl font-bold'>
-            Payment Amount : <span className='text-secondary'>{price}</span>
+            Payment Amount : ₹<span className='text-secondary'>{price}</span>
         </h1>
     </div>
     <div className='max-w-md mx-auto'>

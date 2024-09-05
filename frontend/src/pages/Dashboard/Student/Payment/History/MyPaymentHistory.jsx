@@ -81,7 +81,7 @@ console.log(currentUser)
               {paginatedPayments.map((payment, index) => (
                 <tr key={index} className="border-b">
                   <td className="p-4">{index + 1}</td>
-                  <td className="whitespace-nowrap px-6 py-4">{payment.amount}</td>
+                  <td className="whitespace-nowrap px-6 py-4">₹{payment.amount}</td>
                   <td className="whitespace-nowrap px-6 py-4">{payment.classesId}</td>
                   <td className="whitespace-nowrap px-6 py-4">
                     {new Date(payment.date).toLocaleDateString()}

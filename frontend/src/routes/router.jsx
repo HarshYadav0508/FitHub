@@ -16,6 +16,9 @@ import SelectedClass from '../pages/Dashboard/Student/SelectedClass.jsx';
 import MyPaymentHistory from '../pages/Dashboard/Student/Payment/History/MyPaymentHistory.jsx';
 import AsInstructor from '../pages/Dashboard/Student/Apply/AsInstructor.jsx';
 import Payment from '../pages/Dashboard/Student/Payment/Payment.jsx';
+import CourseDetails from '../pages/Dashboard/Student/Enroll/CourseDetails.jsx';
+import InstructorCp from '../pages/Dashboard/Instructor/InstructorCp.jsx';
+import AddClass from '../pages/Dashboard/Instructor/AddClass.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -82,7 +85,22 @@ export const router = createBrowserRouter([
     {
       path: "user/payment",
       element: <Payment />
-    }
+    },
+    {
+      path: "course-details",
+      element: <CourseDetails />
+    },
+
+    //INSTRUCTOR
+
+    {
+      path: "instructor-cp",
+      element: <InstructorCp />
+    },
+    {
+      path: "add-class",
+      element: <AddClass />
+    },
     ]    
   }
 ]);

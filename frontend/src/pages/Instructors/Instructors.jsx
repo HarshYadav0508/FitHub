@@ -47,7 +47,7 @@ const instructors = () => {
                             />
                           <div className='flex flex-col text-center'>
                             <p className='font-medium text-lg dark:text-white text-gray-800'>{instructor?.instructor?.name}</p>
-                            <p className='text-gray-500 whitespace-nowrap'>Instructor</p>
+                            <p className='text-gray-500 whitespace-nowrap'>{instructor?.name}</p>
                             <p className='text-gray-500 mb-4 whitespace-nowrap'>Address: {instructor?.address}</p>
                             <p className='text-gray-500 mb-4 whitespace-nowrap'>Email: {instructor?.email}</p>
                             <div className='flex justify-center items-center gap-4'>

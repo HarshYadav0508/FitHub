@@ -48,16 +48,6 @@ const secondMenuItems = [
         to: '/',
         icon: <BiHomeAlt className='text-2xl' />, 
         label: 'Home'
-    },
-    {
-        to: '/trending',
-        icon: <MdOfflineBolt className='text-2xl' />, 
-        label: 'Trending'
-    },
-    {
-        to: '/browse',
-        icon: <SlUserFollowing className='text-2xl' />, 
-        label: 'Following'
     }
 ];
 
