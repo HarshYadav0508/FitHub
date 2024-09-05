@@ -6,6 +6,7 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { ToastContainer, toast } from 'react-toastify';
 
 
+
 import img from '../../assets/home/user.png';
 import { DialogActions } from '@mui/material';
 import { BiTime } from 'react-icons/bi';
@@ -135,7 +136,7 @@ const ClassPage = () => {
                                     <div>
                                         <h3 className='text-2xl mt-8'>Course Description</h3>
                                         <p className='mt-4'>
-                                            This tutorial will help you learn quickly and thoroughly. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis officiis exercitationem possimus quidem quasi nemo harum architecto. Sed distinctio accusamus sapiente delectus ipsum tenetur laborum similique quas officiis, atque pariatur.
+                                            {course?.description}
                                         </p>
                                         <div className='bg-[#F8F8F8] dark:bg-indigo-500 space-y-6 p-8 rounded-md my-8'>
                                             <h4 className='text-2xl'>What will you Learn?</h4>
@@ -214,12 +215,21 @@ const ClassPage = () => {
                     <div className='lg:col-span-4 col-span-12 mt-8 md:mt-0'>
                         <div className='sidebarWrapper space-y-[30px]'>
                             <div className='widget custom-text space-y-5'>
-                                <a href="#" className='h-[220px] rounded relative block'>
-                                    <img src={course.image} alt=""  className='block w-full h-full object-cover rounded'/>
-                                    <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
-                                    <img src="/play.png" alt="" /></div>
-                                </a>
-                                <h3>₹{course.price}</h3>
+                                {course?.videoLink && (
+                                    <div className='h-[220px] rounded relative block'>
+                                        <iframe
+                                            width="100%"
+                                            height="100%"
+                                            src={`https://www.youtube.com/embed/${new URL(course?.videoLink).searchParams.get('v')}`}
+                                            title="YouTube video player"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowFullScreen
+                                            className="rounded"
+                                        ></iframe>
+                                    </div>
+                                )}
+                                <h3 className='text-[40px] font-bold '>₹{course.price}</h3>
                                 <button onClick={() => handleSelect(course._id)} title={role =='admin' || role === 'instructor' ? 'Instructor/Admin Can not be able to select' ? course.availableSeats < 1 : 'No Seat Available' : "You can select Classes"}
                                 disabled={role === 'admin' || role === 'instructor' || course.availableSeats < 1}  className='btn bg-secondary btn-primary py-2 px-6 w-full rounded-md text-center text-white'>Enroll Now
                                 </button>

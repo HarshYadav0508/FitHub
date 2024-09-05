@@ -19,6 +19,14 @@ import Payment from '../pages/Dashboard/Student/Payment/Payment.jsx';
 import CourseDetails from '../pages/Dashboard/Student/Enroll/CourseDetails.jsx';
 import InstructorCp from '../pages/Dashboard/Instructor/InstructorCp.jsx';
 import AddClass from '../pages/Dashboard/Instructor/AddClass.jsx';
+import MyClasses from '../pages/Dashboard/Instructor/MyClasses.jsx';
+import PendingCourse from '../pages/Dashboard/Instructor/PendingCourse.jsx';
+import MyApproved from '../pages/Dashboard/Instructor/MyApproved.jsx';
+import AdminHome from '../pages/Dashboard/Admin/AdminHome.jsx';
+import ManageUsers from '../pages/Dashboard/Admin/ManageUsers.jsx';
+import ManageClasses from '../pages/Dashboard/Admin/ManageClasses.jsx';
+import ManageApp from '../pages/Dashboard/Admin/ManageApp.jsx';
+import UpdateUser from '../pages/Dashboard/Admin/UpdateUser.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -101,6 +109,43 @@ export const router = createBrowserRouter([
       path: "add-class",
       element: <AddClass />
     },
+    {
+      path: "my-classes",
+      element: <MyClasses />
+    },
+    {
+      path: "my-pending",
+      element: <PendingCourse />
+    },
+    {
+      path: "my-approved",
+      element: <MyApproved />
+    },
+
+    //ADMIN ROUTES
+
+    {
+      path: "admin-home",
+      element: <AdminHome />
+    },
+    {
+      path: "manage-users",
+      element: <ManageUsers />
+    },
+    {
+      path: "manage-class",
+      element: <ManageClasses />
+    },
+    {
+      path: "manage-applications",
+      element: <ManageApp />
+    },
+    {
+      path: "update-user/:id",
+      element: <UpdateUser />,
+      loader: ({params}) => fetch(`http://localhost:3000/users/${params.id}`)
+    }
+  
     ]    
   }
 ]);

@@ -11,7 +11,8 @@ const GoogleLogin = () => {
         googleLogin().then((userCredential) => {
             const user = userCredential.user;
             console.log(user);
-            if(user) {
+    
+            if (user) {
                 const userInfo = {
                     name: user?.displayName,
                     email: user?.email,
@@ -21,25 +22,37 @@ const GoogleLogin = () => {
                     address: 'Is not Specified',
                     phone: 'Is not Specified'
                 };
-
-                if(user.email && user.displayName) {
-                    return axios.post('http://localhost:3000/new-user', userInfo ).then(() => {
-                        navigate('/');
-                        return "Registration Successfull!"
-                    }).catch((err) => {
-                        throw new Error(err);
-                    })
+    
+                if (user.email && user.displayName) {
+                    // Check if the user already exists in the database
+                    axios.get(`http://localhost:3000/users?email=${user.email}`)
+                        .then((res) => {
+                            if (res.data.length === 0) {
+                                // User does not exist, so save new user data
+                                return axios.post('http://localhost:3000/new-user', userInfo)
+                                    .then(() => {
+                                        navigate('/');
+                                        return "Registration Successful!";
+                                    })
+                                    .catch((err) => {
+                                        throw new Error(err);
+                                    });
+                            } else {
+                                // User already exists, navigate without saving
+                                console.log("User already exists");
+                                navigate('/');
+                            }
+                        })
+                        .catch((err) => {
+                            console.log("Error checking user existence:", err);
+                        });
                 }
             }
-            
         }).catch((error) => {
             // Handle Errors here.
-            const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorMessage);
-            
-          });
-        
+        });
     }
   return (
     <div className="flex items-center justify-center my-3">

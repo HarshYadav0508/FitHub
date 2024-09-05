@@ -43,6 +43,7 @@ const AddClass = () => {
                     toast.info('Successsfully added Class!')
                     console.log(res.data);
                     // Navigate('/dashboard/instructor-cp');
+
                 })
 
             }

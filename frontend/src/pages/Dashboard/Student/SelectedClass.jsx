@@ -66,6 +66,7 @@ const SelectedClass = () => {
                             });
                             const newClasses = classes.filter((item) => item._id !== id);
                             setClasses(newClasses);
+                            window.location.reload();
                         }
                     })
                     .catch((err) => console.log(err));

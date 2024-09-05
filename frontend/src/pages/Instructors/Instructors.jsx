@@ -18,6 +18,7 @@ const instructors = () => {
   }, [axiosFetch]);
 
   // console.log(instructors);
+  console.log(instructors?.photoUrl)
 
   return (
     <div className='md:w-[80%] mx-auto my-36'>
@@ -43,7 +44,7 @@ const instructors = () => {
                         <div className='flex-col flex gap-6 md:gap-8'>
                         <img
                             className='rounded-full border-4 border-gray-300 h-24 w-24 mx-auto' 
-                            src={instructor?.photoUrl || `${img}`} 
+                            src={instructor?.photoURL || `${img}`} 
                             />
                           <div className='flex flex-col text-center'>
                             <p className='font-medium text-lg dark:text-white text-gray-800'>{instructor?.instructor?.name}</p>

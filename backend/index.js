@@ -134,13 +134,9 @@ async function run() {
         const updateDoc = {
             $set: {
                 name: updatedUser.name,
-                email: updatedUser.email,
                 role: updatedUser.option,
-                address: updatedUser.address,
                 phone: updatedUser.phone,
                 about: updatedUser.about,
-                photoUrl: updatedUser.photoUrl,
-                skills: updatedUser.skills ? updatedUser.skills : null,
             }
         }
         const result = await userCollection.updateOne(filter, updateDoc, options);
@@ -190,6 +186,8 @@ async function run() {
         const result = await classCollection.find().toArray();
         res.send(result);
     })
+
+    //Admin ROUTES
 
     //Update class status and reason
     app.patch('/class-status/:id', verifyJWT, verifyAdmin, async (req,res) => {
