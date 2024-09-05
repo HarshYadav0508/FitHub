@@ -441,6 +441,15 @@ async function run() {
         const result = await appliedCollection.insertOne(data);
         res.send(result);
     })
+    
+    app.get('/applied-instructors', async (req, res) => {
+        try {
+            const result = await appliedCollection.find({}).toArray();
+            res.send(result);
+        } catch (err) {
+            res.status(500).send(err.message);
+        }
+    });
 
 
     app.get('/applied-instructors/:email',   async (req, res) => {

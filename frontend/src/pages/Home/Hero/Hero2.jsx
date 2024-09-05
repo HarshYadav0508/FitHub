@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom'
 
 import bgImg from '../../../assets/home/banner-2.jpg'
+import { AuthContext } from '../../../utilities/providers/AuthProvider';
+
+
 
 const Hero = () => {
+    const { user } = useContext(AuthContext); 
+  const isLoggedIn = !!user;
+
+
   return (
     <div className='min-h-screen bg-cover' style={{backgroundImage: `url(${bgImg})`}}>
     <div className='min-h-screen flex justify-start pl-11 items-center text-white bg-black bg-opacity-60'>
@@ -14,8 +22,17 @@ const Hero = () => {
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex animi, eos, beatae quaerat voluptatum eaque officiis deserunt tempore odit necessitatibus veniam accusantium ullam, dicta quam voluptates? Unde ipsum quis dignissimos.</p>
                 </div>
                 <div className='flex flex-wrap items-center gap-5'>
-                    <button className='px-7 py-3 rounded-lg bg-secondary font-bold uppercase'>Join Today</button>
-                    <button className='px-7 py-3 rounded-lg border hover:bg-secondary font-bold uppercase'>View Courses</button>
+                    <Link to="/join-today">
+                            <button
+                            className={`px-7 py-3 rounded-lg ${isLoggedIn ? 'bg-gray-400 cursor-not-allowed' : 'bg-secondary'} font-bold uppercase`}
+                            disabled={isLoggedIn}
+                            >
+                            Join Today
+                            </button>
+                    </Link>
+                    <Link to='/classes'>
+                        <button className='px-7 py-3 rounded-lg border hover:bg-secondary font-bold uppercase'>View Courses</button>
+                    </Link>
                 </div>
             </div>
 
