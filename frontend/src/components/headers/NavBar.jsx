@@ -117,7 +117,7 @@ function NavBar() {
       <div className='lg:w-[95%] mx-auto sm:px-6 lg:px-6'>
         <div className='px-4 py-4 flex items-center justify-between'>
           <div onClick={()=> navigate('/')} className='flex-shrink-0 cursor-pointer pl-7 md:p-0 flex items-center'>
-            <div>
+            <div className='dark:text-white'>
               <h1 className='text-2xl inline-flex gap-3 items-center font-bold'>
                 FitHub <img src='/fithub-logo.png' className='w-8 h-8 rounded-full' alt='FitHub Logo' />
               </h1>

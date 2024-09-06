@@ -21,25 +21,25 @@ const instructors = () => {
   console.log(instructors?.photoUrl)
 
   return (
-    <div className='md:w-[80%] mx-auto my-36'>
-            <div>
+    <div className='md:w-full mx-auto dark:bg-dark dark:text-white'>
+            <div className='pt-24'>
                 <h1 className='text-5xl font-bold text-center'>
                     Our <span className='text-secondary'>Instructors</span>
                 </h1>
                 <div className='w-[40%] text-center mx-auto my-4'>
-                    <p className='text-gray-500'>
+                    <p className='text-gray-500 dark:text-gray-300'>
                       Explore and connect with our expert instructors, each bringing a wealth of knowledge and experience to help you transform yourself.
                     </p>
                 </div>
             </div>
             {
               instructors ? (
-                <div className='grid md:grid-cols-2 lg:grid-cols-4 w-[95%] gap-4 mx-auto mt-20'>
+                <div className='grid md:grid-cols-2 lg:grid-cols-4 w-[95%] gap-4 mx-auto mt-20 '>
                   {
                     instructors.map((instructor, i) => (
                       <div 
                         key={instructor.id || i}  // Use instructor.id if available, otherwise fall back to index
-                        className='flex dark:text-white hover:-translate-y-2 duration-200 cursor-pointer flex-col shadow-md py-8 px-10 md:px-8 rounded-md'
+                        className='flex dark:bg-dark2 dark:text-gray-300 hover:-translate-y-2 duration-200 cursor-pointer flex-col shadow-md py-8 px-10 md:px-8 rounded-md'
                       >
                         <div className='flex-col flex gap-6 md:gap-8'>
                         <img

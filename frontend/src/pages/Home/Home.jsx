@@ -9,7 +9,7 @@ function Home() {
   const {user} = useAuth();
   console.log(user);
   return (
-    <section>
+    <section className='dark:bg-dark dark:text-white'>
       <HeroContainer />
       <div className='max-w-screen-xl mx-auto'>
         <Gallery className="m-0" />

@@ -11,6 +11,7 @@ export default {
         'primary': '#101011',
         'secondary': '#00A5CF',
         'dark': '#262626',
+        'dark2': '#383838',
       }
     },
   },

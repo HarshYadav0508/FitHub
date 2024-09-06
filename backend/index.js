@@ -143,6 +143,67 @@ async function run() {
         res.send(result);
     })
 
+    //Update user Role
+    app.patch('/update-user-role/:id', verifyJWT, verifyAdmin, async (req, res) => {
+        const id = req.params.id;
+        const { role } = req.body;  
+    
+        if (!role) {
+            return res.status(400).send({ message: 'Role is required' });
+        }
+    
+        try {
+            
+            const appliedUser = await appliedCollection.findOne({ _id: new ObjectId(id) });
+    
+            if (!appliedUser) {
+                return res.status(404).send({ message: 'Applied user not found' });
+            }
+    
+            
+            const user = await userCollection.findOne({ email: appliedUser.email });
+    
+            if (!user) {
+                return res.status(404).send({ message: 'User not found in userCollection' });
+            }
+    
+            
+            const updateDoc = { $set: { role: role } };
+            const result = await userCollection.updateOne({ email: appliedUser.email }, updateDoc);
+    
+            if (result.modifiedCount === 0) {
+                return res.status(404).send({ message: 'User role unchanged or not found' });
+            }
+    
+            
+            await appliedCollection.updateOne(
+                { _id: new ObjectId(id) },
+                { $set: { role: 'instructor' } } 
+            );
+    
+            res.send({ message: 'User role updated successfully' });
+        } catch (error) {
+            res.status(500).send({ message: error.message });
+        }
+    });
+
+    //DELETING APPLIED USER
+    app.delete('/delete-applied-instructor/:id', verifyJWT, verifyAdmin, async (req, res) => {
+        const id = req.params.id;
+        const filter = { _id: new ObjectId(id) };
+    
+        try {
+            const result = await appliedCollection.deleteOne(filter);
+            if (result.deletedCount > 0) {
+                res.send({ message: 'Applied instructor removed successfully' });
+            } else {
+                res.status(404).send({ message: 'Instructor not found' });
+            }
+        } catch (error) {
+            res.status(500).send({ message: error.message });
+        }
+    });
+
     // Routes for CLASSES =======================================================================================================
     app.post('/new-class', verifyJWT, verifyInstructor, async (req, res) => {
       const newClass = req.body;
@@ -478,6 +539,8 @@ async function run() {
         }
         res.send(result);
     })
+
+    
 
     
 

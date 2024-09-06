@@ -1,6 +1,9 @@
 import React from 'react'
 import img1 from '../../../assets/gallery/image3.jpg';
 import img2 from '../../../assets/gallery/image4.jpg';
+import img3 from '../../../assets/gallery/image5.jpg';
+import img4 from '../../../assets/gallery/image6.jpg';
+import img5 from '../../../assets/gallery/image7.jpg';
 
 
 const Gallery = () => {
@@ -20,13 +23,13 @@ const Gallery = () => {
                 <img src={img1} className='md:h-[350px] rounded-sm' />
                 </div>
                 <div className='hover:-translate-y-2 duration-200 cursor-pointer'>
-                <img src={img1} className='md:h-[350px] rounded-sm' /> 
+                <img src={img3} className='md:h-[350px] rounded-sm' /> 
                 </div>
                 <div className='hover:-translate-y-2 duration-200 cursor-pointer'>
-                <img src={img1} className='md:h-[350px] rounded-sm' />
+                <img src={img4} className='md:h-[350px] rounded-sm' />
                 </div>
                 <div className='hover:-translate-y-2 duration-200 cursor-pointer'>
-                <img src={img1} className='md:h-[350px] rounded-sm' />
+                <img src={img5} className='md:h-[350px] rounded-sm' />
                 </div>
             </div>
         </div>

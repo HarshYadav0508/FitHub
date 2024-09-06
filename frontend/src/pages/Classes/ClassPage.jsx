@@ -69,18 +69,19 @@ const ClassPage = () => {
 
 
   return (
-    <>
+    
+    <div>
     <ToastContainer />
     <div
-    className='font-gilroy font-medium text-gray dark:text-white text-lg leading-[27px] w-[90%] mx-auto'
+    className='font-gilroy flex flex-col items-center font-medium text-gray dark:bg-dark dark:text-white text-lg leading-[27px] w-full mx-auto'
     data-new-gr-c-s-check-Loaded='14.1157.0'
     data-gr-ext-installed=''
     >
-        <div className='mt-20 mb-28 pt-3'>
-            <h1 className='text-4xl font-bold text-center'><span className='text-secondary'>Course</span> Details</h1>
+        <div className='mt-20 mb-28 pt-3 text-center'>
+            <h1 className='text-4xl font-bold '><span className='text-secondary'>Course</span> Details</h1>
         </div>
 
-        <div className='nav-tab-wrapper tabs section-padding mt-8'>
+        <div className='nav-tab-wrapper tabs section-padding mt-8 '>
             <div className='container'>
                 <div className='grid grid-cols-12 md:gap-[30px]'>
                     {/* Left Side */}
@@ -99,9 +100,9 @@ const ClassPage = () => {
                                         </div>
                                     </div>
                                     <div className='flex-1'>
-                                        <p className='text-secondary'>
+                                        <p className='text-secondary '>
                                             Trainer 
-                                            <a href="#" className='text-black'>
+                                            <a href="#" className='text-black dark:text-white'>
                                                 : {course.instructorName}
                                             </a>
                                         </p>
@@ -110,7 +111,7 @@ const ClassPage = () => {
                                 <div>
                                     <span className='text-secondary'>
                                         Last Update:
-                                        <a href="#" className='text-black ml-1'>
+                                        <a href="#" className='text-black dark:text-white ml-1'>
                                             {new Date(course.submitted).toLocaleDateString()}
                                         </a>
                                     </span>
@@ -296,7 +297,7 @@ const ClassPage = () => {
             </div>
         </div>
     </div>
-    </>
+    </div>
   )
 }
 
