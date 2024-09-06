@@ -5,7 +5,7 @@ const useAxiosFetch = () => {
     // Create a stable axios instance
     const axiosInstance = useMemo(() => {
         const instance = axios.create({
-            baseURL: 'http://localhost:3000/',
+            baseURL: 'https://fithub-r8lw.onrender.com',
         });
 
         // Interceptors setup

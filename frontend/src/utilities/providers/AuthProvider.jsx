@@ -78,7 +78,7 @@ const AuthProvider = ({children}) => {
             setUser(user);
     
             if (user) {
-                axios.post('http://localhost:3000/api/set-token', { email: user.email, name: user.displayName })
+                axios.post('https://fithub-r8lw.onrender.com/api/set-token', { email: user.email, name: user.displayName })
                     .then((data) => {
                         if (data.data.token) {
                             localStorage.setItem('token', data.data.token);

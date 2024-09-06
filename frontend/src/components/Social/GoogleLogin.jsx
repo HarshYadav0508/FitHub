@@ -25,11 +25,11 @@ const GoogleLogin = () => {
     
                 if (user.email && user.displayName) {
                     // Check if the user already exists in the database
-                    axios.get(`http://localhost:3000/users?email=${user.email}`)
+                    axios.get(`https://fithub-r8lw.onrender.com/users?email=${user.email}`)
                         .then((res) => {
                             if (res.data.length === 0) {
                                 // User does not exist, so save new user data
-                                return axios.post('http://localhost:3000/new-user', userInfo)
+                                return axios.post('https://fithub-r8lw.onrender.com/new-user', userInfo)
                                     .then(() => {
                                         navigate('/');
                                         return "Registration Successful!";

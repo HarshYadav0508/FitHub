@@ -6,7 +6,7 @@ import useUser from '../../../../hooks/useUser'
 import { Navigate } from 'react-router-dom'
 
 const CheckoutPage = ({price, cartItem}) => {
-    const URL = `http://localhost:3000/payment-info?${cartItem&&`classId=${cartItem}`}`
+    const URL = `https://fithub-r8lw.onrender.com/payment-info?${cartItem&&`classId=${cartItem}`}`
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxiosSecure();

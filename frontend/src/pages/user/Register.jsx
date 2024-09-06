@@ -53,7 +53,7 @@ const Register = () => {
                         };
 
                         if (user.email && user.displayName) {
-                            return axios.post('http://localhost:3000/new-user', userInfo)
+                            return axios.post('https://fithub-r8lw.onrender.com/new-user', userInfo)
                                 .then(() => {
                                     setGlobalError('');
                                     navigate('/');

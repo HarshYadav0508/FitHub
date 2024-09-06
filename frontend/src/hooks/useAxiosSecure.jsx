@@ -9,7 +9,7 @@ const useAxiosSecure = () => {
 
   
   const axiosSecure = useMemo(() => axios.create({
-    baseURL: 'http://localhost:3000/',
+    baseURL: 'https://fithub-r8lw.onrender.com',
   }), []);
 
   useEffect(() => {
