@@ -238,7 +238,7 @@ const ClassPage = () => {
                                     <li className='flex space-x-3 border-b vorder-[#ECECEC] mb-4 pb-4 last:pb-0 past:mb-0 last:border-0'>
                                         <div className='flex-1 space-x-3 flex items-center'>
                                             <FaUser className='inline-flex'/>
-                                            <div className='text-black font-semibold'>
+                                            <div className='text-black dark:text-gray-300  font-semibold'>
                                                 Instructor
                                             </div>
                                         </div>
@@ -247,7 +247,7 @@ const ClassPage = () => {
                                     <li className='flex space-x-3 border-b vorder-[#ECECEC] mb-4 pb-4 last:pb-0 past:mb-0 last:border-0'>
                                         <div className='flex-1 space-x-3 flex items-center'>
                                             <SiKnowledgebase className='inline-flex'/>
-                                            <div className='text-black font-semibold'>
+                                            <div className='text-black dark:text-gray-300 font-semibold'>
                                                 Lectures
                                             </div>
                                         </div>
@@ -256,7 +256,7 @@ const ClassPage = () => {
                                     <li className='flex space-x-3 border-b vorder-[#ECECEC] mb-4 pb-4 last:pb-0 past:mb-0 last:border-0'>
                                         <div className='flex-1 space-x-3 flex items-center'>
                                             <FaUsers className='inline-flex'/>
-                                            <div className='text-black font-semibold'>
+                                            <div className='text-black dark:text-gray-300 font-semibold'>
                                                 Enrolled
                                             </div>
                                         </div>
@@ -265,7 +265,7 @@ const ClassPage = () => {
                                     <li className='flex space-x-3 border-b vorder-[#ECECEC] mb-4 pb-4 last:pb-0 past:mb-0 last:border-0'>
                                         <div className='flex-1 space-x-3 flex items-center'>
                                             <BiTime className='inline-flex'/>
-                                            <div className='text-black font-semibold'>
+                                            <div className='text-black dark:text-gray-300 font-semibold'>
                                                 Duration
                                             </div>
                                         </div>
@@ -274,7 +274,7 @@ const ClassPage = () => {
                                     <li className='flex space-x-3 border-b vorder-[#ECECEC] mb-4 pb-4 last:pb-0 past:mb-0 last:border-0'>
                                         <div className='flex-1 space-x-3 flex items-center'>
                                             <FaLevelUpAlt className='inline-flex'/>
-                                            <div className='text-black font-semibold'>
+                                            <div className='text-black dark:text-gray-300 font-semibold'>
                                                 Course Level
                                             </div>
                                         </div>
@@ -283,7 +283,7 @@ const ClassPage = () => {
                                     <li className='flex space-x-3 border-b vorder-[#ECECEC] mb-4 pb-4 last:pb-0 past:mb-0 last:border-0'>
                                         <div className='flex-1 space-x-3 flex items-center'>
                                             <FaLanguage className='inline-flex'/>
-                                            <div className='text-black font-semibold'>
+                                            <div className='text-black dark:text-gray-300 font-semibold'>
                                                 Language
                                             </div>
                                         </div>
