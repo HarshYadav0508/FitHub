@@ -3,6 +3,11 @@
 FitHub is a full-stack fitness marketplace web application where users can explore fitness classes, book instructors, and manage their subscriptions. The platform also allows instructors to apply, manage their classes, and track their students.
 
 
+# Live Demo ✅
+
+https://fithub-tau-two.vercel.app/
+
+
 
 ## Features
 
