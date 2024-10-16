@@ -5,9 +5,9 @@ FitHub is a full-stack fitness marketplace web application where users can explo
 
 # Live Demo ✅
 
-## ⚠️ Load backend api first before opening the app here : https://fithub-r8lw.onrender.com/
+## Step 1 Load backend api first before opening the app, it can take few minutes : https://fithub-r8lw.onrender.com/
 
-https://fithub-tau-two.vercel.app/
+## Step 2 website link : https://fithub-tau-two.vercel.app/
 
 
 
