@@ -11,7 +11,7 @@ FitHub is a full-stack fitness marketplace web application where users can explo
 
 
 
-## Features
+# Features
 
 **User Authentication:** Google OAuth and regular login flow.
 
@@ -30,7 +30,7 @@ FitHub is a full-stack fitness marketplace web application where users can explo
 **Dark Mode:** Full dark mode support.
 
 
-## Tech Stack
+# Tech Stack
 
 **Frontend:** React, Tailwind CSS
 
@@ -45,7 +45,7 @@ FitHub is a full-stack fitness marketplace web application where users can explo
 **Image Hosting:** ImgBB API for course thumbnails
 
 
-## Installation
+# Installation
 Clone the repository:
 ```
 bash
@@ -94,7 +94,7 @@ cd server
 npm run dev
 ```
 
-## Usage
+# Usage
 
 **User Registration/Login:** Users can log in using Google or manually sign up.
 
@@ -106,7 +106,7 @@ npm run dev
 
 
 
-## API Endpoints
+# API Endpoints
 
 ### User Management
 
